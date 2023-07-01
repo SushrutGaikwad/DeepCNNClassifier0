@@ -1,8 +1,10 @@
 """This module contains the code for ConfigurationManager."""
 
+from pathlib import Path
+
 from DeepClassifier.entities import DataIngestionConfig
 from DeepClassifier.utils import read_yaml, create_directories
-from DeepClassifier.constants import *
+from DeepClassifier.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from DeepClassifier import logger
 
 
@@ -35,15 +37,15 @@ class ConfigurationManager:
         """
         # Getting the values in the `data_ingestion` key of the config.yaml
         # file
-        logger.info(f"Getting the config info for data ingestion")
+        logger.info("Getting the config info for data ingestion")
         config = self.config.data_ingestion
 
         # Creating the directory 'artifacts/data_ingestion'
-        logger.info(f"Creating the directory 'artifacts/data_ingestion'")
+        logger.info("Creating the directory 'artifacts/data_ingestion'")
         create_directories(paths_of_directories=[config.root_dir])
 
         # Creating and returning `DataIngestionConfig`
-        logger.info(f"Creating DataIngestionConfig")
+        logger.info("Creating DataIngestionConfig")
         data_ingestion_config = DataIngestionConfig(
             root_dir=config.root_dir,
             source_URL=config.source_URL,

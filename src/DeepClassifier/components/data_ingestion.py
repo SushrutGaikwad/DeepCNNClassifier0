@@ -19,15 +19,15 @@ class DataIngestion:
         Args:
             config (DataIngestionConfig): The DataIngestionConfig.
         """
-        logger.info(f">>>>>>>>>>>> Data Ingestion Log Started <<<<<<<<<<<<")
+        logger.info(">>>>>>>>>>>> Data Ingestion Log Started <<<<<<<<<<<<")
         self.config = config
 
     def download_data_file(self) -> None:
         """Downloads the data file."""
-        logger.info(f"Trying to download the data file")
+        logger.info("Trying to download the data file")
         # Download only when the file is not already downloaded
         if not os.path.exists(self.config.zipped_data_file_path):
-            logger.info(f"Data file is not already present. So, downloading it")
+            logger.info("Data file is not already present. So, downloading it")
             filename, headers = request.urlretrieve(
                 url=self.config.source_URL, filename=self.config.zipped_data_file_path
             )
@@ -50,8 +50,8 @@ class DataIngestion:
             list: The updated list of files.
         """
         updated_list_of_files = []
-        logger.info(f"Looping over all the files in the list of files")
-        logger.info(f"Only considering image files of cats and dogs")
+        logger.info("Looping over all the files in the list of files")
+        logger.info("Only considering image files of cats and dogs")
         for file in list_of_files:
             # Only get those files having an extension of 'jpg' and those that
             # are in either the 'Cat' or the 'Dog' directories
@@ -60,7 +60,7 @@ class DataIngestion:
 
         return updated_list_of_files
 
-    def _preprocess(self, zf: ZipFile, file: str, working_dir: str) -> None:
+    def _preprocess(self, zf: ZipFile, file: Path, working_dir: Path) -> None:
         """Extracts a file from the zipped data file.
 
         Args:
@@ -74,7 +74,7 @@ class DataIngestion:
 
         # We extract the file only if it does not already exists
         if not os.path.exists(target_file_path):
-            zf.extract(file, working_dir)
+            zf.extract(str(file), str(working_dir))
 
         # If the size of the extracted file is 0 KB, we delete it
         if os.path.getsize(target_file_path) == 0:
@@ -86,22 +86,22 @@ class DataIngestion:
     def unzip_and_clean_data_file(self) -> None:
         """Unzips and cleans the data file."""
         logger.info(
-            f"Unzipping and cleaning the data files, i.e., removing the unwanted files"
+            "Unzipping and cleaning the data files, i.e., removing the unwanted files"
         )
         with ZipFile(file=self.config.zipped_data_file_path, mode="r") as zf:
             # Getting the list of files in the downloaded zip file
-            logger.info(f"Getting the list of files in the downloaded zip file")
+            logger.info("Getting the list of files in the downloaded zip file")
             list_of_files = zf.namelist()
 
             # Updating the list of files to only include files that we want
             # for training
-            logger.info(f"Updating the list of files")
+            logger.info("Updating the list of files")
             updated_list_of_files = self._get_updated_list_of_files(
                 list_of_files=list_of_files
             )
 
             # Extracting the files
-            logger.info(f"Extracting and clearning the files")
+            logger.info("Extracting and clearning the files")
             for file in tqdm(updated_list_of_files):
                 self._preprocess(
                     zf=zf, file=file, working_dir=self.config.unzipped_file_dir

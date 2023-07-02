@@ -20,7 +20,7 @@ if __name__ == "__main__":
     try:
         logger.info(f">>>>>>>>>>>> {STAGE_NAME} Stage Started <<<<<<<<<<<<")
         main()
-        logger.info(f">>>>>>>>>>>> {STAGE_NAME} Stage Completed <<<<<<<<<<<<")
+        logger.info(f">>>>>>>>>>>> {STAGE_NAME} Stage Completed <<<<<<<<<<<<\n\n\n\n")
     except Exception as e:
         logger.exception(e)
         raise e

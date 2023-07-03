@@ -1,0 +1,46 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/DeepClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: 9bb0e56c62316e3a33e0407a1982a69d
+      size: 834
+    - path: src/DeepClassifier/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 7b0ec6829955f292d82549d5085218e2
+      size: 754
+    outs:
+    - path: artifacts/data_ingestion/PetImages
+      hash: md5
+      md5: 3a5cf86541f22c236620ce5b952ad684.dir
+      size: 848866410
+      nfiles: 24998
+  prepare_base_model:
+    cmd: python src/DeepClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: 9bb0e56c62316e3a33e0407a1982a69d
+      size: 834
+    - path: src/DeepClassifier/pipeline/stage_02_prepare_base_model.py
+      hash: md5
+      md5: 7f45983e793a90bdf444392865c45f65
+      size: 814
+    params:
+      params.yaml:
+        CLASSES: 2
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        INCLUDE_TOP: false
+        LEARNING_RATE: 0.01
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: 3c5a65e2693a5174be77149a4ac08cb4.dir
+      size: 118054560
+      nfiles: 2

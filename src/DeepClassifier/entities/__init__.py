@@ -3,4 +3,5 @@ from DeepClassifier.entities.config_entities import (
     PrepareBaseModelConfig,
     PrepareCallbacksConfig,
     TrainingConfig,
+    EvaluationConfig,
 )

@@ -146,7 +146,7 @@ class ConfigurationManager:
         # Getting the directory of the training data from the 'data ingestion'
         # key of the config.yaml file
         logger.info(
-            f"Creating the path of the directory training data using the 'data ingestion' key of the config.yaml"
+            "Creating the path of the directory training data using the 'data ingestion' key of the config.yaml"
         )
         training_data_dir = os.path.join(
             self.config.data_ingestion.unzipped_file_dir,
@@ -186,7 +186,7 @@ class ConfigurationManager:
         # Getting the directory of the training data from the 'data ingestion'
         # key of the config.yaml file
         logger.info(
-            f"Creating the path of the directory training data using the 'data ingestion' key of the config.yaml"
+            "Creating the path of the directory training data using the 'data ingestion' key of the config.yaml"
         )
         training_data_dir = os.path.join(
             self.config.data_ingestion.unzipped_file_dir,

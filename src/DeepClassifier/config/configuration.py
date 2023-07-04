@@ -8,6 +8,7 @@ from DeepClassifier.entities import (
     PrepareBaseModelConfig,
     PrepareCallbacksConfig,
     TrainingConfig,
+    EvaluationConfig,
 )
 from DeepClassifier.utils import read_yaml, create_directories
 from DeepClassifier.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
@@ -175,3 +176,31 @@ class ConfigurationManager:
         )
         logger.info(f"TrainingConfig: {training_config}")
         return training_config
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        """Creates and returns EvaluationConfig.
+
+        Returns:
+            EvaluationConfig: EvaluationConfig
+        """
+        # Getting the directory of the training data from the 'data ingestion'
+        # key of the config.yaml file
+        logger.info(
+            f"Creating the path of the directory training data using the 'data ingestion' key of the config.yaml"
+        )
+        training_data_dir = os.path.join(
+            self.config.data_ingestion.unzipped_file_dir,
+            "PetImages",
+        )
+
+        # Creating and returning `EvaluationConfig`
+        logger.info("Creating EvaluationConfig")
+        evaluation_config = EvaluationConfig(
+            model_path=self.config.training.trained_model_path,
+            training_data_dir=training_data_dir,
+            params_validation_split=self.params.VALIDATION_SPLIT,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE,
+        )
+        logger.info(f"EvaluationConfig: {evaluation_config}")
+        return evaluation_config

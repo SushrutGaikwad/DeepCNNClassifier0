@@ -66,3 +66,12 @@ class TrainingConfig:
     # augmentation
     params_zoom_range: float  # Value of the `zoom_range` parameter for data
     # augmentation
+
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    model_path: Path  # Path of the saved model
+    training_data_path: Path  # Path of the training data
+    params_validation_split: float  # Value of the `validation_split` parameter
+    params_image_size: list  # Value of the `image_size` parameter
+    params_batch_size: int  # Value of the `batch_size` parameter

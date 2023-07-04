@@ -196,8 +196,8 @@ class ConfigurationManager:
         # Creating and returning `EvaluationConfig`
         logger.info("Creating EvaluationConfig")
         evaluation_config = EvaluationConfig(
-            model_path=self.config.training.trained_model_path,
-            training_data_dir=training_data_dir,
+            model_path=Path(self.config.training.trained_model_path),
+            training_data_dir=Path(training_data_dir),
             params_validation_split=self.params.VALIDATION_SPLIT,
             params_image_size=self.params.IMAGE_SIZE,
             params_batch_size=self.params.BATCH_SIZE,

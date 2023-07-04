@@ -1,6 +1,5 @@
 """This module contains the code for PrepareBaseModel."""
 
-import os
 import tensorflow as tf
 
 from pathlib import Path

@@ -43,3 +43,18 @@ stages:
       - ZOOM_RANGE
     outs:
       - artifacts/training/model.h5
+
+  evaluation:
+    cmd: python src/DeepClassifier/pipeline/stage_04_evaluation.py
+    deps:
+      - src/DeepClassifier/pipeline/stage_04_evaluation.py
+      - configs/config.yaml
+      - artifacts/data_ingestion/PetImages
+      - artifacts/training/model.h5
+    params:
+      - BATCH_SIZE
+      - IMAGE_SIZE
+      - VALIDATION_SPLIT
+    metrics:
+      - scores.json:
+          cache: false
